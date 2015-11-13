@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AdapterTest</string>
+    <string name="list_item_x">Este é o item %d</string>
+    <string name="button_add">Add</string>
+</resources>
