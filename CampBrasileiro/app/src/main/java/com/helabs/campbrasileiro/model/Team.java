@@ -6,7 +6,9 @@ package com.helabs.campbrasileiro.model;
 public class Team {
 
     private int id;
+
     private String name;
+
     private String urlLogo;
 
     public Team(String name, String urlLogo) {
