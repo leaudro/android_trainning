@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <TextView
+        android:id="@+id/text_datetime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:text="30/10 16:00" />
+
+    <TextView
+        android:id="@+id/text_place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_datetime"
+        android:gravity="center"
+        tools:text="Arena Fonte Nova" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_place"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:id="@+id/img_home_team"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/text_home_team"
+            style="@style/TextMatchStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center_vertical|right"
+            tools:text="Bahia" />
+
+        <TextView
+            android:id="@+id/text_score"
+            style="@style/TextMatchStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="3 X 0" />
+
+        <TextView
+            android:id="@+id/text_away_team"
+            style="@style/TextMatchStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            tools:text="America / MG" />
+
+        <ImageView
+            android:id="@+id/img_away_team"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            tools:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+</merge>
