@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.helabs.campbrasileiro.R;
 import com.helabs.campbrasileiro.model.Team;
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EViewGroup;
@@ -40,6 +41,10 @@ public class TeamItemView extends LinearLayout {
 
     public void bind(Team team) {
         text.setText(team.getName());
-        image.setImageResource(R.mipmap.ic_launcher);
+        Picasso.with(getContext())
+                .load(team.getUrlLogo())
+                .placeholder(R.mipmap.ic_launcher)
+                .resize(100, 100)
+                .into(image);
     }
 }

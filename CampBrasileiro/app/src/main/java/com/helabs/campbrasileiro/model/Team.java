@@ -29,4 +29,12 @@ public class Team {
     public void setUrlLogo(String urlLogo) {
         this.urlLogo = urlLogo;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
