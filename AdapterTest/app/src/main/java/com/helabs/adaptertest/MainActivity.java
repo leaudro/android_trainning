@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     @AfterViews
     public void init() {
-        final FragmentManager manager = getSupportFragmentManager();
-        final FragmentTransaction transaction = manager.beginTransaction();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
         final Fragment fragment = PlanetsListFragment_.builder().build();
         transaction.add(R.id.container, fragment);
         transaction.commit();

@@ -4,11 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.helabs.adaptertest.R;
 import com.helabs.adaptertest.model.Planet;
+import com.helabs.adaptertest.view.PlanetItemView;
+import com.helabs.adaptertest.view.PlanetItemView_;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -42,15 +41,10 @@ public class PlanetsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.item_planet, null);
+            convertView = PlanetItemView_.build(context);
         }
-        Planet item = (Planet) getItem(position);
 
-        TextView textView = (TextView) convertView.findViewById(R.id.text);
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
-
-        textView.setText(item.getName());
-        imageView.setImageResource(item.getImgRes());
+        ((PlanetItemView) convertView).bind((Planet) getItem(position));
 
         return convertView;
     }
@@ -64,7 +58,6 @@ public class PlanetsAdapter extends BaseAdapter {
         if (list == null) {
             list = new ArrayList<>();
         }
-
         return list;
     }
 }
