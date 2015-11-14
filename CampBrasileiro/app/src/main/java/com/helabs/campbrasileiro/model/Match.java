@@ -24,12 +24,13 @@ public class Match {
 
     private Date date;
 
-    public Match(Team homeTeam, int homeTeamScore, Team awayTeam, int awayTeamScore, String place) {
+    public Match(Team homeTeam, int homeTeamScore, Team awayTeam, int awayTeamScore, String place, int round) {
         this.homeTeam = homeTeam;
         this.homeTeamScore = homeTeamScore;
         this.awayTeam = awayTeam;
         this.awayTeamScore = awayTeamScore;
         this.place = place;
+        this.round = round;
     }
 
     public int getId() {
