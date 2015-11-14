@@ -1,5 +1,6 @@
 package com.helabs.campbrasileiro.adapter;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,12 +29,16 @@ public class MatchAdapter extends AABaseAdapter<Match> implements StickyListHead
 
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = new TextView(context);
+        TextView textView = (TextView) convertView;
+        if (textView == null) {
+            textView = new TextView(context);
+            textView.setBackgroundColor(Color.BLACK);
+            textView.setTextColor(Color.WHITE);
+            textView.setPadding(10, 10, 10, 10);
         }
 
-        ((TextView) convertView).setText(String.format("Rodada %d", getItem(position).getRound()));
-        return convertView;
+        textView.setText(String.format("Rodada %d", getItem(position).getRound()));
+        return textView;
     }
 
     @Override
