@@ -1,6 +1,7 @@
 package com.helabs.campbrasileiro.fragment;
 
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 import com.helabs.campbrasileiro.R;
@@ -11,6 +12,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -50,5 +52,12 @@ public class ListMatchesFragment extends Fragment {
     private List<Match> getMatches() {
         List<Match> matches = new Select().all().from(Match.class).execute();
         return matches;
+    }
+
+    @ItemClick(android.R.id.list)
+    public void onListItemClick(int position) {
+        Match m = adapter.getItem(position);
+        String text = m.getHomeTeamScore() + " x " + m.getAwayTeamScore();
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 }
