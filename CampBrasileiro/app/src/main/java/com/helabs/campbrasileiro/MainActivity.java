@@ -3,6 +3,7 @@ package com.helabs.campbrasileiro;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.activeandroid.ActiveAndroid;
 import com.helabs.campbrasileiro.adapter.MainPagerAdapter;
@@ -27,10 +28,14 @@ public class MainActivity extends AppCompatActivity {
     @ViewById
     TabLayout tabs;
 
+    @ViewById
+    Toolbar toolbar;
+
     MainPagerAdapter adapter;
 
     @AfterViews
     public void init() {
+        setSupportActionBar(toolbar);
         fetchData();
     }
 

@@ -1,10 +1,12 @@
 package com.helabs.campbrasileiro.adapter;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.helabs.campbrasileiro.R;
 import com.helabs.campbrasileiro.model.Match;
 import com.helabs.campbrasileiro.view.MatchItemView;
 import com.helabs.campbrasileiro.view.MatchItemView_;
@@ -32,7 +34,11 @@ public class MatchAdapter extends AABaseAdapter<Match> implements StickyListHead
         TextView textView = (TextView) convertView;
         if (textView == null) {
             textView = new TextView(context);
-            textView.setBackgroundColor(Color.BLACK);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                textView.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+            } else {
+                textView.setBackgroundColor(context.getColor(R.color.colorAccent));
+            }
             textView.setTextColor(Color.WHITE);
             textView.setPadding(10, 10, 10, 10);
         }

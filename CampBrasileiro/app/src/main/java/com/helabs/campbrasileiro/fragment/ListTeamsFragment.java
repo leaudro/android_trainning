@@ -4,9 +4,9 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.activeandroid.query.Select;
+import com.helabs.campbrasileiro.DetailTeamActivity_;
 import com.helabs.campbrasileiro.adapter.TeamAdapter;
 import com.helabs.campbrasileiro.model.Team;
 
@@ -53,7 +53,7 @@ public class ListTeamsFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        String text = adapter.getItem(position).getName();
-        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+        long teamId = adapter.getItem(position).getId();
+        DetailTeamActivity_.intent(getActivity()).teamId(teamId).start();
     }
 }

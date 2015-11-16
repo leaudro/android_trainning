@@ -12,6 +12,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -26,6 +27,9 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  */
 @EFragment(R.layout.frag_matches)
 public class ListMatchesFragment extends Fragment {
+
+    @FragmentArg
+    long teamId;
 
     @Bean
     MatchAdapter adapter;
@@ -50,8 +54,15 @@ public class ListMatchesFragment extends Fragment {
     }
 
     private List<Match> getMatches() {
-        List<Match> matches = new Select().all().from(Match.class).execute();
-        return matches;
+        if (teamId == 0) {
+            return new Select().all().from(Match.class).execute();
+        } else {
+            return new Select()
+                    .from(Match.class)
+                    .where("homeTeam = ?", teamId)
+                    .or("awayTeam = ?", teamId)
+                    .execute();
+        }
     }
 
     @ItemClick(android.R.id.list)
