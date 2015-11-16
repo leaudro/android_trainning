@@ -1,15 +1,24 @@
 package com.helabs.campbrasileiro.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 /**
  * Created by hemobile on 14/11/15.
  */
-public class Team {
+@Table(name = "Team")
+public class Team extends Model {
 
-    private int id;
-
+    @Column(unique = true)
     private String name;
 
+    @Column
     private String urlLogo;
+
+    public Team() {
+
+    }
 
     public Team(String name, String urlLogo) {
         this.name = name;
@@ -30,13 +39,5 @@ public class Team {
 
     public void setUrlLogo(String urlLogo) {
         this.urlLogo = urlLogo;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

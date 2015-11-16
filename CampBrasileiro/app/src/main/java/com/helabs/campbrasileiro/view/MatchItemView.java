@@ -17,7 +17,7 @@ import org.androidannotations.annotations.ViewById;
 /**
  * Created by hemobile on 14/11/15.
  */
-@EViewGroup(R.layout.item_match)
+@EViewGroup(R.layout.item_match_2)
 public class MatchItemView extends RelativeLayout {
 
     @ViewById
