@@ -3,6 +3,7 @@ package com.helabs.campbrasileiro.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by hemobile on 14/11/15.
@@ -14,6 +15,7 @@ public class Team extends Model {
     private String name;
 
     @Column
+    @SerializedName("logo_url")
     private String urlLogo;
 
     public Team() {
