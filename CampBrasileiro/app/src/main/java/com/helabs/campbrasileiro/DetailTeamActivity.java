@@ -3,6 +3,7 @@ package com.helabs.campbrasileiro;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -14,6 +15,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -39,11 +41,20 @@ public class DetailTeamActivity extends AppCompatActivity {
         setTitle(team.getName());
         loadTeamLogo();
 
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         Fragment fragment = ListMatchesFragment_.builder().teamId(teamId).build();
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.container, fragment)
                 .commit();
+    }
+
+    @OptionsItem(android.R.id.home)
+    void onBack() {
+        onBackPressed();
     }
 
     @Background
