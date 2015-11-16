@@ -1,28 +1,43 @@
 package com.helabs.campbrasileiro.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.util.Date;
 
 /**
  * Created by hemobile on 14/11/15.
  */
-public class Match {
-    private int id;
+@Table(name = "Match")
+public class Match extends Model {
 
+    @Column
     private int homeTeamScore;
 
+    @Column
     private int awayTeamScore;
 
+    @Column
     private Team homeTeam;
 
+    @Column
     private Team awayTeam;
 
+    @Column
     private int round;
 
+    @Column
     private int seasonId;
 
+    @Column
     private String place;
 
+    @Column
     private Date date;
+
+    public Match() {
+    }
 
     public Match(Team homeTeam, int homeTeamScore, Team awayTeam, int awayTeamScore, String place, int round) {
         this.homeTeam = homeTeam;
@@ -31,14 +46,6 @@ public class Match {
         this.awayTeamScore = awayTeamScore;
         this.place = place;
         this.round = round;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getHomeTeamScore() {
