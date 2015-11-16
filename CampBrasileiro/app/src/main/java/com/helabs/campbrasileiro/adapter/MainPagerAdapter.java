@@ -13,6 +13,7 @@ import com.helabs.campbrasileiro.fragment.ListTeamsFragment_;
 public class MainPagerAdapter extends FragmentPagerAdapter {
 
     private static final int PAGE_COUNT = 2;
+    private static final CharSequence[] TITLES = {"Times", "Partidas"};
 
     public MainPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -33,5 +34,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return PAGE_COUNT;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return TITLES[position];
     }
 }

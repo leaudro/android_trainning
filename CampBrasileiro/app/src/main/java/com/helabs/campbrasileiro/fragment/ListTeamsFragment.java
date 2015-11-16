@@ -13,7 +13,6 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @EFragment
@@ -29,16 +28,6 @@ public class ListTeamsFragment extends ListFragment {
 
     @Background
     void fetchData() {
-        ArrayList<Team> teams = new ArrayList<Team>();
-        teams.add(new Team("América/MG", "http://futebolaovivobr.com/wp-content/uploads/2015/10/Am%C3%A9rica-MG.png"));
-        teams.add(new Team("Bahia", "http://futebolaovivobr.com/wp-content/uploads/2015/10/Bahia-EC.png"));
-        teams.add(new Team("Botafogo", "http://futebolaovivobr.com/wp-content/uploads/2015/10/Botafogo-PB.png"));
-        teams.add(new Team("Vicetória", "http://torcidabahia.com/admin/ckfinder/UserFiles/Image/novo_escudo_do_vitoria.jpg"));
-
-        for (Team team : teams) {
-            team.save();
-        }
-
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
