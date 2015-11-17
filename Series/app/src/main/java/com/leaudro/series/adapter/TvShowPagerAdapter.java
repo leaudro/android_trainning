@@ -4,11 +4,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.leaudro.series.fragment.EpisodesListFragment_;
 import com.leaudro.series.fragment.TvShowInfoFragment_;
 
 public class TvShowPagerAdapter extends FragmentPagerAdapter {
 
-    private static final CharSequence[] TITLE = {"Info"};
+    private static final CharSequence[] TITLE = {"Info", "Episodes"};
     private long tvShowId;
 
     public TvShowPagerAdapter(FragmentManager fm, long tvShowId) {
@@ -23,7 +24,15 @@ public class TvShowPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return TvShowInfoFragment_.builder().tvShowId(tvShowId).build();
+        switch (position) {
+            case 0:
+                return TvShowInfoFragment_.builder().tvShowId(tvShowId).build();
+            case 1:
+                return EpisodesListFragment_.builder().tvShowId(tvShowId).build();
+            case 2:
+                return TvShowInfoFragment_.builder().tvShowId(tvShowId).build();
+        }
+        return null;
     }
 
     @Override

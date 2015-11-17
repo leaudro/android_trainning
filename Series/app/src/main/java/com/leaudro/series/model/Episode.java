@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by hemobile on 17/11/15.
  */
 @DatabaseTable
-public class TvShow implements Serializable {
+public class Episode implements Serializable {
 
     @DatabaseField(id = true)
     private Long id;
@@ -23,6 +23,12 @@ public class TvShow implements Serializable {
 
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ImageURL image;
+
+    @DatabaseField
+    private int season;
+
+    @DatabaseField
+    private int number;
 
     public Long getId() {
         return id;
@@ -54,5 +60,21 @@ public class TvShow implements Serializable {
 
     public void setImage(ImageURL image) {
         this.image = image;
+    }
+
+    public int getSeason() {
+        return season;
+    }
+
+    public void setSeason(int season) {
+        this.season = season;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

@@ -1,10 +1,13 @@
 package com.leaudro.series.connection;
 
+import com.leaudro.series.model.Episode;
 import com.leaudro.series.model.TvShow;
 
 import org.androidannotations.annotations.rest.Get;
 import org.androidannotations.annotations.rest.Rest;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
+
+import java.util.List;
 
 /**
  * Created by hemobile on 17/11/15.
@@ -19,5 +22,5 @@ public interface RestConnection {
     TvShow getTvShowCast(long id);
 
     @Get("/shows/{id}/episodes")
-    TvShow getTvShowEpisodes(long id);
+    List<Episode> getTvShowEpisodes(long id);
 }

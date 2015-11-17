@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.leaudro.series.model.Episode;
 import com.leaudro.series.model.TvShow;
 
 import java.sql.SQLException;
@@ -26,6 +27,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, TvShow.class);
+            TableUtils.createTable(connectionSource, Episode.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
