@@ -5,6 +5,7 @@ import android.widget.BaseAdapter;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.UiThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +46,11 @@ public abstract class AABaseAdapter<T> extends BaseAdapter {
     public void setList(List<T> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    @Override
+    @UiThread
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }

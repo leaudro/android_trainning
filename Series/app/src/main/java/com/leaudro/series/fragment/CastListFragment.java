@@ -1,12 +1,14 @@
 package com.leaudro.series.fragment;
 
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
+import android.widget.ListAdapter;
 
 import com.j256.ormlite.dao.Dao;
-import com.leaudro.series.R;
-import com.leaudro.series.adapter.EpisodesAdapter;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.leaudro.series.adapter.PersonAdapter;
 import com.leaudro.series.database.DatabaseHelper;
-import com.leaudro.series.model.Episode;
+import com.leaudro.series.model.Person;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -15,52 +17,50 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OrmLiteDao;
 import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
-
 /**
  * Created by hemobile on 17/11/15.
  */
-@EFragment(R.layout.frag_list_episodes)
-public class EpisodesListFragment extends Fragment {
+@EFragment
+public class CastListFragment extends ListFragment {
 
     @FragmentArg
-    long tvShowId;
+    Long tvShowId;
 
     @Bean
-    EpisodesAdapter adapter;
-
-    @ViewById(android.R.id.list)
-    StickyListHeadersListView listView;
+    PersonAdapter adapter;
 
     @OrmLiteDao(helper = DatabaseHelper.class)
-    Dao<Episode, Long> episodeDao;
+    Dao<Person, Long> daoPerson;
 
     @AfterViews
-    public void init() {
+    void init() {
         fetchData();
-        listView.setDivider(null);
     }
 
     @Background
     void fetchData() {
-        List<Episode> episodes = null;
+        List<Person> persons = null;
         try {
-            episodes = episodeDao.queryForAll();
+            QueryBuilder<Person, Long> queryBuilder = daoPerson.queryBuilder();
+
+            PreparedQuery<Person> preparedQuery =
+                    queryBuilder.where().isNotNull("character_id").prepare();
+
+            persons = daoPerson.query(preparedQuery);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        adapter.setList(episodes);
+        adapter.setList(persons);
         setListAdapter(adapter);
     }
 
+    @Override
     @UiThread
-    public void setListAdapter(StickyListHeadersAdapter adapter) {
-        listView.setAdapter(adapter);
+    public void setListAdapter(ListAdapter adapter) {
+        super.setListAdapter(adapter);
     }
 }

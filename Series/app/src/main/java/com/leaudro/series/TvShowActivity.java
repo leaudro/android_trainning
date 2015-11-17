@@ -1,13 +1,16 @@
 package com.leaudro.series;
 
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.misc.TransactionManager;
 import com.leaudro.series.adapter.TvShowPagerAdapter;
 import com.leaudro.series.connection.RestConnection;
 import com.leaudro.series.database.DatabaseHelper;
+import com.leaudro.series.model.Cast;
+import com.leaudro.series.model.Episode;
+import com.leaudro.series.model.Person;
 import com.leaudro.series.model.TvShow;
 
 import org.androidannotations.annotations.AfterViews;
@@ -19,6 +22,8 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.concurrent.Callable;
 
 @EActivity(R.layout.activity_tvshow)
 public class TvShowActivity extends AppCompatActivity {
@@ -31,11 +36,14 @@ public class TvShowActivity extends AppCompatActivity {
     @OrmLiteDao(helper = DatabaseHelper.class)
     Dao<TvShow, Long> daoTvShow;
 
-    @ViewById
-    ViewPager pager;
+    @OrmLiteDao(helper = DatabaseHelper.class)
+    Dao<Episode, Long> daoEpisodes;
+
+    @OrmLiteDao(helper = DatabaseHelper.class)
+    Dao<Person, Long> daoPerson;
 
     @ViewById
-    PagerTabStrip tabStrip;
+    ViewPager pager;
 
     private TvShowPagerAdapter adapter;
 
@@ -47,9 +55,27 @@ public class TvShowActivity extends AppCompatActivity {
 
     @Background
     void fetchAndSaveData() {
-        TvShow tvShowInfo = connection.getTvShowInfo(TV_SHOW_ID);
+        final TvShow tvShowInfo = connection.getTvShowInfo(TV_SHOW_ID);
+        final List<Episode> tvShowEpisodes = connection.getTvShowEpisodes(TV_SHOW_ID);
+        final List<Cast> tvShowCast = connection.getTvShowCast(TV_SHOW_ID);
+
         try {
-            daoTvShow.createOrUpdate(tvShowInfo);
+            TransactionManager.callInTransaction(daoEpisodes.getConnectionSource(), new Callable<Object>() {
+                @Override
+                public Object call() throws Exception {
+                    daoTvShow.createOrUpdate(tvShowInfo);
+                    for (Episode episode : tvShowEpisodes) {
+                        daoEpisodes.createOrUpdate(episode);
+                    }
+                    for (Cast cast : tvShowCast) {
+                        Person person = cast.getPerson();
+                        daoPerson.createOrUpdate(person.getCharacter());
+                        daoPerson.createOrUpdate(person);
+                    }
+                    return null;
+                }
+            });
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,5 +85,6 @@ public class TvShowActivity extends AppCompatActivity {
     @UiThread
     void setupAdapter() {
         pager.setAdapter(adapter);
+        pager.setCurrentItem(1, false);
     }
 }

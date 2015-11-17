@@ -1,5 +1,6 @@
 package com.leaudro.series.connection;
 
+import com.leaudro.series.model.Cast;
 import com.leaudro.series.model.Episode;
 import com.leaudro.series.model.TvShow;
 
@@ -18,9 +19,9 @@ public interface RestConnection {
     @Get("/shows/{id}")
     TvShow getTvShowInfo(long id);
 
-    @Get("/shows/{id}/cast")
-    TvShow getTvShowCast(long id);
-
     @Get("/shows/{id}/episodes")
     List<Episode> getTvShowEpisodes(long id);
+
+    @Get("/shows/{id}/cast")
+    List<Cast> getTvShowCast(long id);
 }
