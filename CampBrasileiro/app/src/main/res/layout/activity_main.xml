@@ -23,6 +23,8 @@
             android:theme="@style/TabLayoutTheme" />
     </android.support.design.widget.AppBarLayout>
 
+    <include layout="@layout/loading" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#424242</color>
     <color name="colorPrimaryDark">#212121</color>
-    <color name="colorAccent">#b0bec5</color>
-    <color name="colorControlNormal">#a1887f</color>
+    <color name="colorAccent">#a1887f</color>
+    <color name="colorControlNormal">#b0bec5</color>
     <color name="bg_episodes">#bdbdbd</color>
 </resources>

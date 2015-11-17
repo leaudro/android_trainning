@@ -4,6 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.activeandroid.ActiveAndroid;
 import com.helabs.campbrasileiro.adapter.MainPagerAdapter;
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     @ViewById
     Toolbar toolbar;
 
+    @ViewById
+    View loading;
+
     @RestService
     RestConnection connection;
 
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     @AfterViews
     public void init() {
         setSupportActionBar(toolbar);
+        loading.setVisibility(View.VISIBLE);
+        tabs.setVisibility(View.GONE);
         fetchData();
     }
 
@@ -78,5 +84,8 @@ public class MainActivity extends AppCompatActivity {
         pager.setAdapter(adapter);
 
         tabs.setupWithViewPager(pager);
+
+        tabs.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.GONE);
     }
 }

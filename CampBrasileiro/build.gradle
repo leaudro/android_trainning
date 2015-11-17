@@ -16,6 +16,10 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "http://repo.spring.io/milestone" }
     }
 }
 

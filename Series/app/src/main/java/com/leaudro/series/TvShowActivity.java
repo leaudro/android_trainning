@@ -2,6 +2,7 @@ package com.leaudro.series;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
@@ -45,6 +46,9 @@ public class TvShowActivity extends AppCompatActivity {
     @ViewById
     ViewPager pager;
 
+    @ViewById
+    View loading;
+
     private TvShowPagerAdapter adapter;
 
     @AfterViews
@@ -84,6 +88,7 @@ public class TvShowActivity extends AppCompatActivity {
 
     @UiThread
     void setupAdapter() {
+        loading.setVisibility(View.GONE);
         pager.setAdapter(adapter);
         pager.setCurrentItem(1, false);
     }
