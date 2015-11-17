@@ -31,11 +31,6 @@ public class ListTeamsFragment extends ListFragment {
 
     @Background
     void fetchData() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         adapter.setList(getTeams());
         setListAdapter(adapter);
     }

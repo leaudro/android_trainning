@@ -9,8 +9,6 @@ public class TeamListResponse {
 
     private List<Team> teams;
 
-    private int qtdTeams;
-
     public List<Team> getTeams() {
         return teams;
     }

@@ -3,6 +3,8 @@ package com.helabs.campbrasileiro.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
@@ -12,22 +14,30 @@ import java.util.Date;
 @Table(name = "Match")
 public class Match extends Model {
 
+    @Column(index = true, unique = true, name = "_id")
+    private int id;
+
     @Column
+    @SerializedName("home_team_score")
     private int homeTeamScore;
 
     @Column
+    @SerializedName("away_team_score")
     private int awayTeamScore;
 
     @Column
+    @SerializedName("home_team")
     private Team homeTeam;
 
     @Column
+    @SerializedName("away_team")
     private Team awayTeam;
 
     @Column
     private int round;
 
     @Column
+    @SerializedName("season_id")
     private int seasonId;
 
     @Column
@@ -35,18 +45,6 @@ public class Match extends Model {
 
     @Column
     private Date date;
-
-    public Match() {
-    }
-
-    public Match(Team homeTeam, int homeTeamScore, Team awayTeam, int awayTeamScore, String place, int round) {
-        this.homeTeam = homeTeam;
-        this.homeTeamScore = homeTeamScore;
-        this.awayTeam = awayTeam;
-        this.awayTeamScore = awayTeamScore;
-        this.place = place;
-        this.round = round;
-    }
 
     public int getHomeTeamScore() {
         return homeTeamScore;
@@ -110,5 +108,12 @@ public class Match extends Model {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Match getById() {
+        return new Select()
+                .from(Match.class)
+                .where("_id = ?", id)
+                .executeSingle();
     }
 }

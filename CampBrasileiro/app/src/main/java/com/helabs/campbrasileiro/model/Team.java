@@ -3,6 +3,7 @@ package com.helabs.campbrasileiro.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -11,21 +12,15 @@ import com.google.gson.annotations.SerializedName;
 @Table(name = "Team")
 public class Team extends Model {
 
-    @Column(unique = true)
+    @Column(index = true, unique = true, name = "_id")
+    private int id;
+
+    @Column
     private String name;
 
     @Column
     @SerializedName("logo_url")
     private String urlLogo;
-
-    public Team() {
-
-    }
-
-    public Team(String name, String urlLogo) {
-        this.name = name;
-        this.urlLogo = urlLogo;
-    }
 
     public String getName() {
         return name;
@@ -41,5 +36,16 @@ public class Team extends Model {
 
     public void setUrlLogo(String urlLogo) {
         this.urlLogo = urlLogo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Team getById() {
+        return new Select()
+                .from(Team.class)
+                .where("_id = ?", id)
+                .executeSingle();
     }
 }

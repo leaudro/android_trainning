@@ -17,11 +17,15 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by hemobile on 14/11/15.
  */
 @EViewGroup(R.layout.item_match_2)
 public class MatchItemView extends RelativeLayout {
+
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("dd/MM HH:mm");
 
     @ViewById
     TextView textHomeTeam, textAwayTeam, textScore, textPlace, textDatetime;
@@ -48,9 +52,13 @@ public class MatchItemView extends RelativeLayout {
         textAwayTeam.setText(awayTeam.getName());
         Picasso.with(getContext()).load(awayTeam.getUrlLogo()).into(imgAwayTeam);
 
-        //textDatetime.setText(match.getDate().toString());
+        textDatetime.setText(SDF.format(match.getDate()));
         textPlace.setText(match.getPlace());
-        textScore.setText(String.format("%d X %d", match.getHomeTeamScore(), match.getAwayTeamScore()));
+        if (match.getHomeTeamScore() >= 0) {
+            textScore.setText(String.format("%d X %d", match.getHomeTeamScore(), match.getAwayTeamScore()));
+        } else {
+            textScore.setText("X");
+        }
     }
 
     @Click({R.id.img_away_team, R.id.img_home_team})

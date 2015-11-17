@@ -9,6 +9,7 @@ import com.activeandroid.ActiveAndroid;
 import com.helabs.campbrasileiro.adapter.MainPagerAdapter;
 import com.helabs.campbrasileiro.connection.RestConnection;
 import com.helabs.campbrasileiro.model.Match;
+import com.helabs.campbrasileiro.model.MatchesListResponse;
 import com.helabs.campbrasileiro.model.Team;
 import com.helabs.campbrasileiro.model.TeamListResponse;
 
@@ -18,8 +19,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
-
-import java.util.ArrayList;
 
 
 @EActivity(R.layout.activity_main)
@@ -47,24 +46,29 @@ public class MainActivity extends AppCompatActivity {
 
     @Background
     void fetchData() {
-        ArrayList<Match> matches = new ArrayList<Match>();
-
         TeamListResponse teams = connection.getTeams();
+        MatchesListResponse matches = connection.getMatches();
 
         ActiveAndroid.beginTransaction();
         try {
             for (Team team : teams.getTeams()) {
                 team.save();
             }
-            for (Match match : matches) {
+
+            for (Match match : matches.getMatches()) {
+                Team awayTeam = match.getAwayTeam();
+                match.setAwayTeam(awayTeam.getById());
+                Team homeTeam = match.getHomeTeam();
+                match.setHomeTeam(homeTeam.getById());
                 match.save();
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             ActiveAndroid.setTransactionSuccessful();
         }
-
         ActiveAndroid.endTransaction();
+
         setupViewPager();
     }
 
@@ -75,5 +79,4 @@ public class MainActivity extends AppCompatActivity {
 
         tabs.setupWithViewPager(pager);
     }
-
 }
