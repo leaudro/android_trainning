@@ -8,6 +8,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.leaudro.series.model.Episode;
 import com.leaudro.series.model.Person;
+import com.leaudro.series.model.PersonTvShow;
 import com.leaudro.series.model.TvShow;
 
 import java.sql.SQLException;
@@ -30,6 +31,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, TvShow.class);
             TableUtils.createTable(connectionSource, Episode.class);
             TableUtils.createTable(connectionSource, Person.class);
+            TableUtils.createTable(connectionSource, PersonTvShow.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -38,9 +40,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, TvShow.class, true);
-            TableUtils.dropTable(connectionSource, Episode.class, true);
+            TableUtils.dropTable(connectionSource, PersonTvShow.class, true);
             TableUtils.dropTable(connectionSource, Person.class, true);
+            TableUtils.dropTable(connectionSource, Episode.class, true);
+            TableUtils.dropTable(connectionSource, TvShow.class, true);
         } catch (SQLException e) {
             e.printStackTrace();
         }

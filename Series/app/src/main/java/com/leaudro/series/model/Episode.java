@@ -12,21 +12,18 @@ import java.io.Serializable;
 @DatabaseTable
 public class Episode implements Serializable {
 
+    @DatabaseField(foreign = true)
+    TvShow tvShow;
     @DatabaseField(id = true)
     private Long id;
-
     @DatabaseField
     private String name;
-
     @DatabaseField
     private String summary;
-
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ImageURL image;
-
     @DatabaseField
     private int season;
-
     @DatabaseField
     private int number;
 
@@ -76,5 +73,13 @@ public class Episode implements Serializable {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public TvShow getTvShow() {
+        return tvShow;
+    }
+
+    public void setTvShow(TvShow tvShow) {
+        this.tvShow = tvShow;
     }
 }

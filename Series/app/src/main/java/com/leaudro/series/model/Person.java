@@ -1,7 +1,9 @@
 package com.leaudro.series.model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
@@ -21,6 +23,9 @@ public class Person {
 
     @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private Person character;
+
+    @ForeignCollectionField
+    private ForeignCollection<TvShow> tvShows;
 
     public Long getId() {
         return id;
@@ -52,5 +57,9 @@ public class Person {
 
     public void setCharacter(Person character) {
         this.character = character;
+    }
+
+    public ForeignCollection<TvShow> getTvShows() {
+        return tvShows;
     }
 }
