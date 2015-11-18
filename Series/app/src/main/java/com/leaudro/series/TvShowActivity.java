@@ -15,7 +15,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 @EActivity(R.layout.activity_tvshow)
 public class TvShowActivity extends AppCompatActivity {
 
-    public static final long TV_SHOW_ID = 1369;
+    public static final long TV_SHOW_ID = 161;
     //    private static final long ONE_HOUR = 60 * 60 * 1000;
     private static final long ONE_HOUR = 10 * 1000;
 

@@ -38,8 +38,13 @@ public class EpisodeItemView extends FrameLayout {
         textName.setText(item.getName());
         textEpisode.setText(String.format("S%02dE%02d", item.getSeason(), item.getNumber()));
         textSummary.setText(Html.fromHtml(item.getSummary()));
-        Picasso.with(getContext())
-                .load(item.getImage().getMedium())
-                .into(image);
+        try {
+            Picasso.with(getContext())
+                    .load(item.getImage().getMedium())
+                    .placeholder(R.drawable.placeholder)
+                    .into(image);
+        } catch (NullPointerException e) {
+            image.setImageResource(R.drawable.placeholder);
+        }
     }
 }

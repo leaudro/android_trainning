@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Series</string>
+    <string name="app_name">TvMaze Series</string>
+    <string name="menu_search">Search</string>
 </resources>
