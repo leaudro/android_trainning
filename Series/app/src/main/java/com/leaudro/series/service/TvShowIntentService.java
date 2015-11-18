@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
+import com.leaudro.series.MyPrefs_;
 import com.leaudro.series.connection.RestConnection;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.Cast;
@@ -15,6 +16,7 @@ import org.androidannotations.annotations.EIntentService;
 import org.androidannotations.annotations.OrmLiteDao;
 import org.androidannotations.annotations.ServiceAction;
 import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.androidannotations.api.support.app.AbstractIntentService;
 
 import java.sql.SQLException;
@@ -40,6 +42,9 @@ public class TvShowIntentService extends AbstractIntentService {
 
     @OrmLiteDao(helper = DatabaseHelper.class)
     Dao<Person, Long> daoPerson;
+
+    @Pref
+    MyPrefs_ prefs;
 
     public TvShowIntentService() {
         super("TvShowIntentService");
@@ -73,6 +78,7 @@ public class TvShowIntentService extends AbstractIntentService {
 
         Intent intent = new Intent(ACTION_SAVE_DONE);
         sendBroadcast(intent);
+        prefs.lastUpdate().put(System.currentTimeMillis());
     }
 
 }
