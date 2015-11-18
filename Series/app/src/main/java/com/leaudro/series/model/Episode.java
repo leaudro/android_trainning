@@ -12,7 +12,8 @@ import java.io.Serializable;
 @DatabaseTable
 public class Episode implements Serializable {
 
-    @DatabaseField(foreign = true)
+    public static final String COLUMN_TVSHOW = "tvshow_id";
+    @DatabaseField(foreign = true, columnName = COLUMN_TVSHOW)
     TvShow tvShow;
     @DatabaseField(id = true)
     private Long id;

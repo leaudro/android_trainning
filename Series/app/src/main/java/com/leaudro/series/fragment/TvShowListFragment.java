@@ -1,8 +1,11 @@
 package com.leaudro.series.fragment;
 
 import android.support.v4.app.ListFragment;
+import android.view.View;
+import android.widget.ListView;
 
 import com.j256.ormlite.dao.Dao;
+import com.leaudro.series.TvShowActivity_;
 import com.leaudro.series.adapter.TvShowsAdapter;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.TvShow;
@@ -45,4 +48,11 @@ public class TvShowListFragment extends ListFragment {
         adapter.setList(tvShowList);
         setListAdapter(adapter);
     }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Long tvShowId = adapter.getItem(position).getId();
+        TvShowActivity_.intent(this).tvShowId(tvShowId).start();
+    }
+
 }

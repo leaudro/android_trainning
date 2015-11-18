@@ -20,7 +20,6 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 @EBean
 public class EpisodesAdapter extends AABaseAdapter<Episode> implements StickyListHeadersAdapter {
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         if (convertView == null) {
@@ -32,15 +31,15 @@ public class EpisodesAdapter extends AABaseAdapter<Episode> implements StickyLis
 
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = new TextView(context);
-        }
         TextView textView = (TextView) convertView;
+        if (textView == null) {
+            textView = new TextView(context);
+            textView.setBackgroundResource(R.color.colorPrimaryDark);
+            textView.setTextColor(Color.WHITE);
+            textView.setPadding(16, 16, 16, 16);
+        }
         textView.setText(String.format("Season %s", getItem(position).getSeason()));
-        textView.setBackgroundResource(R.color.colorPrimaryDark);
-        textView.setTextColor(Color.WHITE);
-        textView.setPadding(16, 16, 16, 16);
-        return convertView;
+        return textView;
     }
 
     @Override

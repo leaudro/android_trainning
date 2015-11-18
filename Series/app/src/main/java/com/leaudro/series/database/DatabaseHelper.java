@@ -9,6 +9,7 @@ import com.j256.ormlite.table.TableUtils;
 import com.leaudro.series.model.Episode;
 import com.leaudro.series.model.Person;
 import com.leaudro.series.model.PersonTvShow;
+import com.leaudro.series.model.Persona;
 import com.leaudro.series.model.TvShow;
 
 import java.sql.SQLException;
@@ -21,6 +22,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "database.db";
     private static final int DATABASE_VERSION = 1;
 
+    private Class[] classes = {TvShow.class, Episode.class,
+            Persona.class, Person.class,
+            PersonTvShow.class
+    };
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -28,10 +34,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, TvShow.class);
-            TableUtils.createTable(connectionSource, Episode.class);
-            TableUtils.createTable(connectionSource, Person.class);
-            TableUtils.createTable(connectionSource, PersonTvShow.class);
+            for (Class c : classes) {
+                TableUtils.createTable(connectionSource, c);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -40,10 +45,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, PersonTvShow.class, true);
-            TableUtils.dropTable(connectionSource, Person.class, true);
-            TableUtils.dropTable(connectionSource, Episode.class, true);
-            TableUtils.dropTable(connectionSource, TvShow.class, true);
+            for (int i = classes.length - 1; i >= 0; i--) {
+                TableUtils.dropTable(connectionSource, classes[i], true);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

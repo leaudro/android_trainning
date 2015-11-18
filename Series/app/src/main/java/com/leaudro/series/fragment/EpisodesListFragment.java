@@ -3,11 +3,12 @@ package com.leaudro.series.fragment;
 import android.support.v4.app.Fragment;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.leaudro.series.R;
 import com.leaudro.series.adapter.EpisodesAdapter;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.Episode;
-import com.leaudro.series.service.TvShowIntentService;
+import com.leaudro.series.service.TvShowInfoIntentService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -48,11 +49,14 @@ public class EpisodesListFragment extends Fragment {
         fetchData();
     }
 
-    @Receiver(actions = {TvShowIntentService.ACTION_SAVE_DONE})
+    @Receiver(actions = {TvShowInfoIntentService.ACTION_SAVE_DONE})
     void fetchData() {
         List<Episode> episodes = null;
         try {
-            episodes = episodeDao.queryForAll();
+            QueryBuilder<Episode, Long> queryBuilder = episodeDao.queryBuilder();
+            episodes = episodeDao.query(queryBuilder
+                    .where().eq(Episode.COLUMN_TVSHOW, tvShowId)
+                    .prepare());
         } catch (SQLException e) {
             e.printStackTrace();
         }

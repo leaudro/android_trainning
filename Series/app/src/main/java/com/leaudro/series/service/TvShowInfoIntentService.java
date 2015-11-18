@@ -10,6 +10,8 @@ import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.Cast;
 import com.leaudro.series.model.Episode;
 import com.leaudro.series.model.Person;
+import com.leaudro.series.model.PersonTvShow;
+import com.leaudro.series.model.Persona;
 import com.leaudro.series.model.TvShow;
 
 import org.androidannotations.annotations.EIntentService;
@@ -27,12 +29,15 @@ import java.util.concurrent.Callable;
  * Created by hemobile on 18/11/15.
  */
 @EIntentService
-public class TvShowIntentService extends AbstractIntentService {
+public class TvShowInfoIntentService extends AbstractIntentService {
 
-    public static final String ACTION_SAVE_DONE = "ACTION_SAVE_DONE";
+    public static final String ACTION_SAVE_DONE = "ACTION_SHOW_LIST_SAVED";
 
     @RestService
     RestConnection connection;
+
+    @OrmLiteDao(helper = DatabaseHelper.class)
+    Dao<PersonTvShow, Long> daoPersonTvShow;
 
     @OrmLiteDao(helper = DatabaseHelper.class)
     Dao<TvShow, Long> daoTvShow;
@@ -43,16 +48,18 @@ public class TvShowIntentService extends AbstractIntentService {
     @OrmLiteDao(helper = DatabaseHelper.class)
     Dao<Person, Long> daoPerson;
 
+    @OrmLiteDao(helper = DatabaseHelper.class)
+    Dao<Persona, Long> daoPersona;
+
     @Pref
     MyPrefs_ prefs;
 
-    public TvShowIntentService() {
-        super("TvShowIntentService");
+    public TvShowInfoIntentService() {
+        super("TvShowInfoIntentService");
     }
 
     @ServiceAction
-    void fetchAndSaveData(long tvShowId) {
-        final TvShow tvShowInfo = connection.getTvShowInfo(tvShowId);
+    void fetchAndSaveData(final long tvShowId) {
         final List<Episode> tvShowEpisodes = connection.getTvShowEpisodes(tvShowId);
         final List<Cast> tvShowCast = connection.getTvShowCast(tvShowId);
 
@@ -60,14 +67,17 @@ public class TvShowIntentService extends AbstractIntentService {
             TransactionManager.callInTransaction(daoEpisodes.getConnectionSource(), new Callable<Object>() {
                 @Override
                 public Object call() throws Exception {
-                    daoTvShow.createOrUpdate(tvShowInfo);
+                    TvShow tvShow = daoTvShow.queryForId(tvShowId);
                     for (Episode episode : tvShowEpisodes) {
+                        episode.setTvShow(tvShow);
                         daoEpisodes.createOrUpdate(episode);
                     }
                     for (Cast cast : tvShowCast) {
                         Person person = cast.getPerson();
-                        daoPerson.createOrUpdate(person.getCharacter());
+                        daoPersona.createOrUpdate(person.getCharacter());
                         daoPerson.createOrUpdate(person);
+                        PersonTvShow many2many = new PersonTvShow(person, tvShow);
+                        daoPersonTvShow.createOrUpdate(many2many);
                     }
                     return null;
                 }
@@ -80,5 +90,4 @@ public class TvShowIntentService extends AbstractIntentService {
         sendBroadcast(intent);
         prefs.lastUpdate().put(System.currentTimeMillis());
     }
-
 }

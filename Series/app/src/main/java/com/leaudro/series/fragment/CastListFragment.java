@@ -9,7 +9,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.leaudro.series.adapter.PersonAdapter;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.Person;
-import com.leaudro.series.service.TvShowIntentService;
+import com.leaudro.series.model.PersonTvShow;
+import com.leaudro.series.service.TvShowInfoIntentService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -35,23 +36,23 @@ public class CastListFragment extends ListFragment {
     PersonAdapter adapter;
 
     @OrmLiteDao(helper = DatabaseHelper.class)
-    Dao<Person, Long> daoPerson;
+    Dao<PersonTvShow, Long> daoPersonTvShow;
 
     @AfterViews
     void init() {
         fetchData();
     }
 
-    @Receiver(actions = {TvShowIntentService.ACTION_SAVE_DONE})
+    @Receiver(actions = {TvShowInfoIntentService.ACTION_SAVE_DONE})
     void fetchData() {
         List<Person> persons = null;
         try {
-            QueryBuilder<Person, Long> queryBuilder = daoPerson.queryBuilder();
+            QueryBuilder<PersonTvShow, Long> queryBuilder = daoPersonTvShow.queryBuilder();
 
-            PreparedQuery<Person> preparedQuery =
-                    queryBuilder.where().isNotNull("character_id").prepare();
+            PreparedQuery<PersonTvShow> preparedQuery =
+                    queryBuilder.where().eq(PersonTvShow.COLUMN_TVSHOW, tvShowId).prepare();
 
-            persons = daoPerson.query(preparedQuery);
+            persons = PersonTvShow.toPersonList(daoPersonTvShow.query(preparedQuery));
         } catch (SQLException e) {
             e.printStackTrace();
         }

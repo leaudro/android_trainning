@@ -9,7 +9,7 @@ import com.j256.ormlite.dao.Dao;
 import com.leaudro.series.R;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.TvShow;
-import com.leaudro.series.service.TvShowIntentService;
+import com.leaudro.series.service.TvShowInfoIntentService;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
@@ -46,7 +46,7 @@ public class TvShowInfoFragment extends Fragment {
         fillViews();
     }
 
-    @Receiver(actions = {TvShowIntentService.ACTION_SAVE_DONE})
+    @Receiver(actions = {TvShowInfoIntentService.ACTION_SAVE_DONE})
     void fillViews() {
         try {
             tvShow = daoTvShow.queryForId(tvShowId);

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.leaudro.series.R;
 import com.leaudro.series.model.Person;
+import com.leaudro.series.model.Persona;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -30,7 +31,7 @@ public class PersonItemView extends FrameLayout {
 
     public void bind(Person item) {
         textActor.setText(item.getName());
-        Person character = item.getCharacter();
+        Persona character = item.getCharacter();
         textPersona.setText(character.getName());
     }
 }

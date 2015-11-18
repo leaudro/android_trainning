@@ -9,7 +9,7 @@ public class Cast implements Serializable {
 
     private Person person;
 
-    private Person character;
+    private Persona character;
 
     public Person getPerson() {
         person.setCharacter(character);
