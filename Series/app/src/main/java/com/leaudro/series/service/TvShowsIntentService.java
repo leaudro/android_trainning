@@ -61,7 +61,6 @@ public class TvShowsIntentService extends AbstractIntentService {
         }
 
         Intent intent = new Intent(ACTION_SHOW_LIST_SAVED);
-
         sendBroadcast(intent);
 
         prefs.lastUpdate().put(System.currentTimeMillis());

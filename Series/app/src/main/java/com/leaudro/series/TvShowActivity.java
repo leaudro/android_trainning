@@ -35,11 +35,6 @@ public class TvShowActivity extends AppCompatActivity {
         pager.setAdapter(adapter);
         pager.setCurrentItem(1, false);
 
-//        Intent intent = new Intent(this, TvShowIntentService_.class);
-//        intent.setAction("fetchAndSaveData");
-//        startService(intent);
-        long lastUpdate = prefs.lastUpdate().getOr(0L);
-        long oneHourAgo = System.currentTimeMillis() - ONE_HOUR;
         TvShowInfoIntentService_.intent(this).fetchAndSaveData(tvShowId).start();
     }
 }

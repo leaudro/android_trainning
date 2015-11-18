@@ -3,6 +3,8 @@ package com.leaudro.series.fragment;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.j256.ormlite.dao.Dao;
 import com.leaudro.series.TvShowActivity_;
@@ -24,7 +26,7 @@ import java.util.List;
  * Created by hemobile on 18/11/15.
  */
 @EFragment
-public class TvShowListFragment extends ListFragment {
+public class TvShowListFragment extends ListFragment implements SearchView.OnQueryTextListener {
 
     @Bean
     TvShowsAdapter adapter;
@@ -55,4 +57,14 @@ public class TvShowListFragment extends ListFragment {
         TvShowActivity_.intent(this).tvShowId(tvShowId).start();
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
+    }
 }

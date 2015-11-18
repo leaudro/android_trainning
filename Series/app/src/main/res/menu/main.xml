@@ -8,4 +8,10 @@
         android:title="@string/menu_search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="@string/menu_refresh"
+        app:showAsAction="always" />
 </menu>
