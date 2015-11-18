@@ -16,6 +16,9 @@ import java.util.List;
 @Rest(rootUrl = "http://api.tvmaze.com", converters = GsonHttpMessageConverter.class)
 public interface RestConnection {
 
+    @Get("/shows")
+    List<TvShow> getTvShowList();
+
     @Get("/shows/{id}")
     TvShow getTvShowInfo(long id);
 

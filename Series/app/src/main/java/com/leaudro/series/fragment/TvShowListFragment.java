@@ -6,7 +6,7 @@ import com.j256.ormlite.dao.Dao;
 import com.leaudro.series.adapter.TvShowsAdapter;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.TvShow;
-import com.leaudro.series.service.TvShowIntentService;
+import com.leaudro.series.service.TvShowsIntentService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -34,7 +34,7 @@ public class TvShowListFragment extends ListFragment {
         fetchData();
     }
 
-    @Receiver(actions = {TvShowIntentService.ACTION_SAVE_DONE})
+    @Receiver(actions = {TvShowsIntentService.ACTION_SHOW_LIST_SAVED})
     void fetchData() {
         List<TvShow> tvShowList = null;
         try {

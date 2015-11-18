@@ -20,7 +20,8 @@
 
         <activity android:name=".TvShowActivity_" />
 
-        <service android:name=".service.TvShowIntentService_" />
+        <service android:name=".service.TvShowInfoIntentService_" />
+        <service android:name=".service.TvShowsIntentService_" />
     </application>
 
 </manifest>
