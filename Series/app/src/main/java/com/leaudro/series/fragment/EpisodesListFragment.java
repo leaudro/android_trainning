@@ -7,13 +7,14 @@ import com.leaudro.series.R;
 import com.leaudro.series.adapter.EpisodesAdapter;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.Episode;
+import com.leaudro.series.service.TvShowIntentService;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OrmLiteDao;
+import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -43,11 +44,11 @@ public class EpisodesListFragment extends Fragment {
 
     @AfterViews
     public void init() {
-        fetchData();
         listView.setDivider(null);
+        fetchData();
     }
 
-    @Background
+    @Receiver(actions = {TvShowIntentService.ACTION_SAVE_DONE})
     void fetchData() {
         List<Episode> episodes = null;
         try {

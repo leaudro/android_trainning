@@ -9,12 +9,14 @@ import com.j256.ormlite.dao.Dao;
 import com.leaudro.series.R;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.TvShow;
+import com.leaudro.series.service.TvShowIntentService;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OrmLiteDao;
+import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
 
 import java.sql.SQLException;
@@ -41,6 +43,11 @@ public class TvShowInfoFragment extends Fragment {
 
     @AfterViews
     void init() {
+        fillViews();
+    }
+
+    @Receiver(actions = {TvShowIntentService.ACTION_SAVE_DONE})
+    void fillViews() {
         try {
             tvShow = daoTvShow.queryForId(tvShowId);
         } catch (SQLException e) {

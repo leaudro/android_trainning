@@ -43,8 +43,8 @@ public abstract class AABaseAdapter<T> extends BaseAdapter {
         return list;
     }
 
-    public void setList(List<T> list) {
-        this.list = list;
+    public void setList(List<T> newList) {
+        list = newList;
         notifyDataSetChanged();
     }
 

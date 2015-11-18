@@ -9,13 +9,14 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.leaudro.series.adapter.PersonAdapter;
 import com.leaudro.series.database.DatabaseHelper;
 import com.leaudro.series.model.Person;
+import com.leaudro.series.service.TvShowIntentService;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OrmLiteDao;
+import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.UiThread;
 
 import java.sql.SQLException;
@@ -41,7 +42,7 @@ public class CastListFragment extends ListFragment {
         fetchData();
     }
 
-    @Background
+    @Receiver(actions = {TvShowIntentService.ACTION_SAVE_DONE})
     void fetchData() {
         List<Person> persons = null;
         try {
