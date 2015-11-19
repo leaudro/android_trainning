@@ -1,5 +1,6 @@
 package com.leaudro.series;
 
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         boolean b = super.onCreateOptionsMenu(menu);
 
         SearchView v = (SearchView) menuSearch.getActionView();
+
+        MenuItemCompat.setOnActionExpandListener(menuSearch, fragment);
+
         v.setOnQueryTextListener(fragment);
 
         return b;

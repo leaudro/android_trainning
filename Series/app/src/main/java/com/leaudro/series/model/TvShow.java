@@ -12,10 +12,12 @@ import java.io.Serializable;
 @DatabaseTable
 public class TvShow implements Serializable {
 
+    public static final String COLUMN_NAME = "name";
+
     @DatabaseField(id = true)
     private Long id;
 
-    @DatabaseField
+    @DatabaseField(columnName = COLUMN_NAME)
     private String name;
 
     @DatabaseField

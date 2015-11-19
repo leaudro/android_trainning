@@ -34,6 +34,7 @@ public class TvShowActivity extends AppCompatActivity {
         adapter = new TvShowPagerAdapter(getSupportFragmentManager(), tvShowId);
         pager.setAdapter(adapter);
         pager.setCurrentItem(1, false);
+        pager.setOffscreenPageLimit(2);
 
         TvShowInfoIntentService_.intent(this).fetchAndSaveData(tvShowId).start();
     }

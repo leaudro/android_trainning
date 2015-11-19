@@ -41,6 +41,7 @@ public class TvShowItemView extends FrameLayout {
             textSummary.setText(Html.fromHtml(tvShow.getSummary()));
             Picasso.with(getContext())
                     .load(tvShow.getImage().getMedium())
+                    .placeholder(R.drawable.placeholder)
                     .into(image);
         }
     }
